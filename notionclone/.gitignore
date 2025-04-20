@@ -1,3 +1,7 @@
 
 # clerk configuration (can include secrets)
 /.clerk/
+./node_modules/
+# next.js build output
+nextjs/
+# next.js static files

@@ -18,14 +18,20 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
-          <Header />
-          <div className="flex min-h-screen">
-            <Sidebar />
-            <div className="flex-1 p-4 bg-gray-100 overflow-y-auto scrollbar-hide">
-              {children}
-            </div>
+        <body className="bg-gray-100">
+          {/* Fixed Header */}
+          <div className="fixed top-0 left-0 right-0 z-50">
+            <Header />
           </div>
+
+          {/* Sidebar + Main content */}
+          <div className="flex min-h-screen pt-16"> {/* pt-16 = 64px */}
+            <Sidebar />
+            <main className="flex-1 p-4 overflow-y-auto scrollbar-hide">
+              {children}
+            </main>
+          </div>
+
           <Toaster position="top-center" />
         </body>
       </html>

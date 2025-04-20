@@ -11,7 +11,6 @@ if(!serviceAccountBase64) {
 let app: App;
 
 const serviceAccount = JSON.parse(Buffer.from(serviceAccountBase64, 'base64').toString('utf-8'));
-
 if (getApps().length === 0) {
   app = initializeApp({
     credential: cert(serviceAccount), 
