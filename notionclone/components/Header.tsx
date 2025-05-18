@@ -13,10 +13,10 @@ import Breadcrumbs from "./Breadcrumbs";
 export default function Header() {
   const { user } = useUser();
   return (
-    <div className="flex justify-between items-center p-4">
+    <div className="flex justify-between items-center p-4 bg-white shadow-md">
       {user && (
         <Link href={"/"}>
-          <h1 className="text-2xl font-bold">
+          <h1 className="md:text-2xl md:font-bold font-semibold text-lg">
             {user?.firstName}
             {"'s"} space
           </h1>

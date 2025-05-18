@@ -14,7 +14,7 @@ const Document = ({ id }: { id: string }) => {
 
   const isOwner = useOwner();
   return (
-    <div className="flex-1 h-full p-5 bg-white rounded-lg">
+    <div className="flex-1 h-full md:p-5 p-2 bg-white rounded-lg">
       <div className="flex max-w-6xl justify-between mx-auto pb-5 gap-2">
         {isLoading ? (
           <p>Loading...</p>
