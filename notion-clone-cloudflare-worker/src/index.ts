@@ -24,31 +24,6 @@ app.get('/test', (c) => {
 	return c.json({ status: 'Server is running' });
 });
 
-// Chat using Gemini (Google)
-app.post('/chattodocument-gemini', async (c) => {
-	const genAI = new GoogleGenerativeAI(c.env.GEMINI_API_KEY);
-	console.log(c.env.GEMINI_API_KEY);
-	const { documentData, question } = await c.req.json();
-
-	const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
-
-	const chat = model.startChat({
-		history: [
-			{
-				role: 'user',
-				parts: [{ text: `Document: ${documentData}` }],
-			},
-			{
-				role: 'model',
-				parts: [{ text: 'Got it. I’ll help with that document.' }],
-			},
-		],
-	});
-
-	const result = await chat.sendMessage(question);
-	return c.json({ message: result.response.text() });
-});
-
 // Chat using Cloudflare AI (LLaMA 2)
 app.post('/chattodocument-llama', async (c) => {
 	const { documentData, question } = await c.req.json();
@@ -69,6 +44,31 @@ app.post('/chattodocument-llama', async (c) => {
 
 	const responseText = await streamToText(result as ReadableStream<any>);
 	return c.json({ message: responseText });
+});
+
+// Chat using Gemini (Google)
+app.post('/chattodocument', async (c) => {
+	const genAI = new GoogleGenerativeAI(c.env.GEMINI_API_KEY);
+	console.log(c.env.GEMINI_API_KEY);
+	const { documentData, question } = await c.req.json();
+
+	const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+
+	const chat = model.startChat({
+		history: [
+			{
+				role: 'user',
+				parts: [{ text: `Document: ${documentData}` }],
+			},
+			{
+				role: 'model',
+				parts: [{ text: 'Got it. I’ll help with that document.' }],
+			},
+		],
+	});
+
+	const result = await chat.sendMessage(question);
+	return c.json({ message: result.response.text() });
 });
 
 // Helper function to convert a ReadableStream to text
